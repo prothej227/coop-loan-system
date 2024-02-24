@@ -1,0 +1,132 @@
+{% extends 'main/base.html' %}
+{% block head %}
+{{ super() }}
+        <link href="/static/main/css/add_member.css" rel="stylesheet" />
+{% endblock %}
+{% block title %}Member Profile - SIBR-001-00{{ ref_member.member_id}}{% endblock %}
+{% block content %}
+
+<div class="container-fluid px-4 w-100">
+    <h1 class="mt-4" style="font-size: 1.5em;">Member Records</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item"><a class="link-dark" href="/members">Members</a></li>
+        <li class="breadcrumb-item active">SIBR-001-00{{ ref_member.member_id}}</li>
+    </ol>
+
+    <div class="card mb-4" style="font-family: Proxima Nova Alt Rg;">
+        <div class="card-header bg-dark bg-gradient text-white" style="font-weight: lighter;">Member Profile</div>
+        <div class="container mt-5">
+            <div class="row">
+              <div class="col-md-3 border-right ml-0">
+                <div class="card d-flex flex-column align-items-center text-center"><img class="rounded-circle mt-3" width="150px" style=" border: 0.1px solid #cfcfcf" src="/static/profile_{% if ref_member.sex == 'male' %}m{% else %}fm{% endif %}.jpg">
+                  <div class="card-body">
+                    <h5 class="card-title font-weight-bold">{{ ref_member.firstName }} {{ ref_member.lastName }}</h5>
+                    <span class="card-text text-black-50">Date Joined: {{ ref_member.dob }}
+                  </div>
+                </div>
+            </div>
+              <div class="col-md-6">
+                <table class="table">
+                  <tr>
+                    <th>Member ID:</th>
+                    <td>SIBR-001-00{{ ref_member.member_id}}</td>
+                  </tr>
+                  <tr>
+                    <th>First Name:</th>
+                    <td>{{ ref_member.firstName }}</td>
+                  </tr>
+                  <tr>
+                    <th>Middle Name:</th>
+                    <td>{{ ref_member.middleName}}</td>
+                  </tr>
+                  <tr>
+                    <th>Last Name:</th>
+                    <td>{{ ref_member.lastName }}</td>
+                  </tr>
+                  <tr>
+                    <th>Birth Address:</th>
+                    <td>{{ ref_member.birthAddress  }}</td>
+                  </tr>
+                  <tr>
+                    <th>Date of Birth:</th>
+                    <td>{{ ref_member.dob }}</td>
+                  </tr>
+                  <tr>
+                    <th>Nationality:</th>
+                    <td>{{ ref_member.nationality }}</td>
+                  </tr>
+                  <tr>
+                    <th>Religion:</th>
+                    <td>{{ ref_member.religion }}</td>
+                  </tr>
+                  <tr>
+                    <th>Sex:</th>
+                    <td>{{ ref_member.sex }}</td>
+                  </tr>
+                  <tr>
+                    <th>Civil Status:</th>
+                    <td>{{ ref_member.civilStatus }}</td>
+                  </tr>
+                  <tr>
+                    <th>Current Address:</th>
+                    <td>{{ ref_member.curAdress }}</td>
+                  </tr>
+                  <tr>
+                    <th>Permanent Address:</th>
+                    <td>{{ ref_member.perAddress }}</td>
+                  </tr>
+                  <tr>
+                    <th>Contact Number:</th>
+                    <td>{{ ref_member.concactNum }}</td>
+                  </tr>
+                  <tr>
+                    <th>Zip Code:</th>
+                    <td>{{ ref_member.zipCode }}</td>
+                  </tr>
+                  <tr>
+                    <th>TIN Number:</th>
+                    <td>{{ ref_member.tinNumber }}</td>
+                  </tr>
+                  <tr>
+                    <th>ID Type 1:</th>
+                    <td>{{ ref_member.idType1 }}</td>
+                  </tr>
+                  <tr>
+                    <th>ID Type 2:</th>
+                    <td>{{ ref_member.idType2 }}</td>
+                  </tr>
+                  <tr>
+                    <th>ID Number 1:</th>
+                    <td>{{ ref_member.idNumber1 }}</td>
+                  </tr>
+                  <tr>
+                    <th>ID Number 2:</th>
+                    <td>{{ ref_member.idNumber2 }}</td>
+                  </tr>
+                  <tr>
+                    <th>Basic Education:</th>
+                    <td>{{ ref_member.basicEduc }}</td>
+                  </tr>
+                  <tr>
+                    <th>Vocational Degree:</th>
+                    <td>{{ ref_member.vocDegree }}</td>
+                  </tr>
+                  <tr>
+                    <th>College Degree:</th>
+                    <td>{{ ref_member.colDegree }}</td>
+                  </tr>
+                  <tr>
+                    <th>Postgraduate Degree:</th>
+                    <td>{{ ref_member.posDegree }}</td>
+                  </tr>
+                  <tr>
+                    <th>Occupation:</th>
+                    <td>{{ ref_member.occupation }}</td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+    </div>
+    <script src="/static/js/utils.js"></script>
+{% endblock %}

@@ -1,0 +1,31 @@
+@font-face {
+    font-family: 'Proxima Nova Alt Rg';
+    src: url('/static/webfont/ProximaNovaA-Regular.woff2') format('woff2'),
+        url('/static/webfont/ProximaNovaA-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    src: url('/static/webfont/Montserrat-Regular.woff2') format('woff2'),
+        url('/static/webfont/Montserrat-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+.tx-proxima {
+    font-family: 'Proxima Nova Alt Rg';
+}
+
+.tx-mont {
+    font-family: 'Montserrat';
+}
+
+
+/* .form-control:focus {
+    border-color:#1893f8;
+    box-shadow: 0 0 5px #023e70;
+} */

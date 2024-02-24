@@ -1,0 +1,53 @@
+
+{% extends 'login/base.html' %}
+{% block title %}Login{% endblock %}
+{% block form %}
+<div class="row justify-content-center">
+    <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-8 col-sm-12 text-left h-100">
+        <div class="card shadow-lg" style="font-family: 'Proxima Nova Alt Rg';">
+            <div class="card-body p-5">
+                <h1 class="fs-4 card-title tx-mont text-center" style="color: #0e5997">NEW ADMIN ACCOUNT</h1>
+                <hr>
+                <form method="POST" class="needs-validation" novalidate="" autocomplete="off">
+                    <div class="mb-3">
+                        <label class="mb-2 text-muted" for="username">New Username</label>
+                        <input id="username" type="text" class="form-control" name="username" value="" required autofocus>
+                        <div class="invalid-feedback">
+                            Username is invalid
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="mb-2 w-100">
+                            <label class="text-muted" for="password">Set Password</label>
+                        </div>
+                        <input id="password" type="password" class="form-control" name="password" required>
+                        <div class="invalid-feedback">
+                            Password is required
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="mb-2 text-muted" for="email">Add Email</label>
+                        <input id="email" type="email" class="form-control" name="email" required autofocus>
+                        <div class="invalid-feedback">
+                            Email is invalid
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-start" style="gap:0.5em;">
+                        <button type="submit" class="btn btn-outline-success">
+                            Request assistance
+                        </button>
+                        <button type="submit" class="btn btn-outline-primary">
+                            Register
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <div class="card-footer py-3 border-0">
+                <div class="text-center" >
+                    <span style="display:block">To login, please click this <a href="/login" class="text-dark">link.</a></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 
+{% endblock %}

@@ -1,0 +1,268 @@
+{% extends 'main/base.html' %}
+{% block head %}
+{{ super() }}
+        <link href="/static/main/css/add_member.css" rel="stylesheet" />
+{% endblock %}
+{% block title %}Add Member{% endblock %}
+{% block content %}
+
+<div class="container-fluid px-4 w-100">
+    <h1 class="mt-4" style="font-size: 1.5em;">Coop Registration System</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item"><a>Members</a></li>
+        <li class="breadcrumb-item active">Add Member</li>
+    </ol>
+
+    <div class="card mb-4" style="font-family: Proxima Nova Alt Rg;">
+        <div class="card-header bg-dark bg-gradient text-white" style="font-weight: lighter;">Members Electronic Information Sheet</div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-12 col-xl-9 col-xxl-6">
+                    <form method="POST" action="/process_member" novalidate>
+                        
+                        <script>
+                            // Schedule the fading out and removal of the alert after a delay
+                            window.setTimeout(function() {
+                                $(".alert").fadeTo(500, 0, function() {
+                                    $(this).remove(); // Remove the alert after fading out
+                                });
+                            }, 4000); // Delay in milliseconds (e.g., 4 seconds)
+
+                        </script>
+
+                        {% with messages = get_flashed_messages(with_categories=true) %}
+                            {% if messages %}
+
+                                {% for category, message in messages %}
+                                <div class="alert alert-{{ category }}" role="alert">
+                                    {% if category == "success" %}<i class="fas fa-check-circle"></i>{% endif %} {{ message }}
+                                </div>
+                                {% endfor %}
+
+                            {% endif %}
+                        {% endwith %}
+
+                        <div class="form-group mb-3">
+                          <label class="mb-1" for="fullName">Full Name <small class="lbl text-muted">(Indicate your legal name)</small></label>
+                          <div class="d-flex">
+                            <input type="text" class="form-control me-2" id="firstName" name="firstName" aria-describedby="emailHelp" placeholder="First" required>
+                            <input type="text" class="form-control mx-2" id="middleName" name="middleName" aria-describedby="emailHelp" placeholder="Middle" required>
+                            <input type="text" class="form-control ms-2" id="lastName" name="lastName" aria-describedby="emailHelp" placeholder="Last" required>
+                          </div>
+                        </div>
+                        <hr>
+                        <div class="form-group mb-3">
+                            <div class="d-flex flex-column">
+                                <label class="mb-1">Birth Information & Personal Details</label>
+                                <div class="d-flex flex-fill">
+                                    <div class="d-flex flex-column flex-fill me-2">
+                                        <label for="birthAddress" class="lbl text-muted">Place of Birth</label>
+                                        <input type="text" class="form-control flex-fill mb-2" id="birthAddress" name="birthAddress" placeholder="City/Municipality, Province, Country, Postal Code">
+                                    </div>
+                                    <div class="d-flex flex-column flex-fill">
+                                        <label for="datepicker" class="lbl text-muted">Date of Birth</label>
+                                        <input type="date" class="form-control flex-fill mb-2" id="datepicker" name="dob" required>
+                                    </div>
+                                </div>
+                                
+                                <div class="d-flex">
+                                    <input type="place" class="form-control me-2" id="nationality" name="nationality" placeholder="Nationality">
+                                    <input type="place" class="form-control me-2" id="religion" name="religion" placeholder="Religion">
+                                    <select class="form-select me-2" id="sex" name="sex" style="color:#6c757d">
+                                        <option disabled selected >Sex</option>
+                                        <option value="male">Male</option>
+                                        <option value="female">Female</option>
+                                    </select>
+                                    <select class="form-select" id="civilStatus" name="civilStatus" style="color:#6c757d">
+                                        <option disabled selected>Civil Status</option>
+                                        <option value="single">Single</option>
+                                        <option value="married">Married</option>
+                                        <option value="separated">Separated</option>
+                                        <option value="widowed">Widowed</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="form-group mb-3">
+                            <div class="d-flex flex-column">
+                                <label class="mb-1">Address and Contact Information</label>
+                                <div class="d-flex">
+                                    <input type="text" class="form-control mb-2 me-2" id="curAddress" name="curAddress" placeholder="Current Address">
+                                    <input type="text" class="form-control mb-2" id="perAddress" name="perAddress" placeholder="Permanent Address">
+                                </div>
+                                <div class="d-flex">
+                                    <input type="text" class="form-control mb-2 me-2" id="contactNum" name="contactNum" placeholder="Contact No.">
+                                    <input type="number" class="form-control mb-2" id="zipCode" name="zipCode" placeholder="Zip Code">
+                                </div>
+                                <div class="form-group form-check">
+                                    <label class="form-check-label text-muted lbl" for="sameAddress">Current address same as permanent address.</label>
+                                    <input type="checkbox" class="form-check-input" id="sameAddress">
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="form-group mb-3">
+                            <label class="mb-1">TIN & Valid Government-Issued IDs</label>
+                            <div class="d-flex flex-column">
+                                
+                                <label class="text-muted lbl">TIN Number</label>
+                                <div class="d-flex mb-2">
+                                    <input type="number" class="form-control" id="tinNumber" name="tinNumber" placeholder="XX-XXX-XX"> 
+                                </div>
+                                <label class="text-muted lbl">ID No. 1</label>
+                                <div class="d-flex mb-2">
+                                    <input type="text" class="form-control me-2" id="idType1" name="idType1" placeholder="ID Type">
+                                    <input type="number" class="form-control" id="idNumber1" name="idNumber1" placeholder="ID Number">                                   
+                                </div>
+
+                                <label class="text-muted lbl">ID No. 2</label>
+                                <div class="d-flex">
+                                    <input type="text" class="form-control me-2" id="idType2" name="idType2" placeholder="ID Type">
+                                    <input type="number" class="form-control" id="idNumber2" name="idNumber2" placeholder="ID Number">                                   
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="form-group mb-3">
+                            <label class="mb-1">Educational Attainment</label>
+                            <div class="d-flex flex-md-row align-items-start justify-content-start">
+                            
+                                <div class="d-flex flex-column justify-content-start me-5">
+                                    <label class="fw-light">Basic Education <span class="lbl text-muted">(highest attained)</span></label>
+                                    <div class="form-check me-5">
+                                        <input class="form-check-input" type="radio" name="basicEduc" value="noEduc" id="noEduc" selected>
+                                        <label class="form-check-label" for="noEduc">None / Dropout</label>
+                                    </div>
+                                    <div class="form-check me-5">
+                                        <input class="form-check-input" type="radio" name="basicEduc" value="elemGrad" id="elemGrad">
+                                        <label class="form-check-label" for="elemGrad">Elementary Graduate</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="basicEduc" value="hsGrad" id="hsGrad" >
+                                        <label class="form-check-label" for="hsGrad">High School Graduate</label>
+                                    </div>
+                                </div>
+
+                                <div id="higherEducDiv" class="d-flex flex-column justify-content-start">
+                                    <label class="fw-light">Higher Education <span class="lbl text-muted">(check if attained)</span></label>
+                                    
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="vocGrad" name="vocGrad">
+                                        <label class="form-check-label" for="vocGrad">Vocational</label>
+                                    </div>
+                                    <input type="text" class="form-control mb-2" id="vocDegree" name="vocDegree" placeholder="Specify degree finished" disabled>
+                                    
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="colGrad" name="colGrad">
+                                        <label class="form-check-label" for="colGrad">College</label>
+                                    </div>
+                                    <input type="text" class="form-control mb-2" id="colDegree" name="colDegree" placeholder="Specify degree finished" disabled>
+                                    
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="" id="posGrad" name="posGrad">
+                                        <label class="form-check-label" for="posGrad">Post Graduate</label>
+                                    </div>
+                                    <input type="text" class="form-control mb-2" id="posDegree" name="posDegree" placeholder="Specify degree finished" disabled>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="form-group mb-3">
+                            <label class="mb-1">Occupation</label><br>
+                            <label class="fw-light">Type <span class="lbl text-muted">(select what applies)</span></label>
+                            <div class="d-flex flex-md-row align-items-left justify-content-between">
+
+                                <div class="d-flex flex-column me-3">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="occupation" id="govEmp" value="Gov_Employee">
+                                        <label class="form-check-label" for="govEmp">Government Employee</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="occupation" id="privEmp" value="Priv_Employee">
+                                        <label class="form-check-label" for="privEmp">Private Employee</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="occupation" id="pracProff" value="Prac_Proff">
+                                        <label class="form-check-label" for="pracProff">Practicing Professional</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="occupation" id="nonProff" value="Non_Proff">
+                                        <label class="form-check-label" for="nonProff">Non-Professional</label>
+                                    </div>
+                                </div>
+
+                                          
+                                <div class="d-flex flex-column me-3">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="occupation" id="bussPer" value="Buss_Person">
+                                        <label class="form-check-label small-text" for="bussPer">Business Person / Entrepreneur</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="occupation" id="churchServant" value="Chur_Servant">
+                                        <label class="form-check-label small-text" for="churchServant">Church Servant / Worker</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="occupation" id="ofw" value="Ofw">
+                                        <label class="form-check-label small-text" for="ofw">Overseas Filipino Worker (OFW)</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="occupation" id="Ret_Pen" value="Ret_Pen">
+                                        <label class="form-check-label small-text" for="Ret_Pen">Retiree/Pensioner</label>
+                                    </div>
+                                </div>
+
+                                <div class="d-flex flex-column">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="occupation" id="houseWife" value="House_Wife">
+                                        <label class="form-check-label" for="houseWife">Housewife / Househusband</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="occupation" id="flexRadioDefault2">
+                                        <label class="form-check-label" for="flexRadioDefault2">Youth / Student</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="occupation" id="flexRadioDefault2">
+                                        <label class="form-check-label" for="flexRadioDefault2">Farmer / Fisherfolk</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="occupation" id="flexRadioDefault2">
+                                        <label class="form-check-label" for="flexRadioDefault2">Laborer</label>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="form-group mb-3">
+                            <button type="button" class="btn btn-sm btn-dark mb-1 me-2" id="addBeneficiaryButton"><i class="fa fa-plus" aria-hidden="true"></i></button>
+                            <label class="mb-1">Beneficiaries</label>
+                            
+                            <div id="benHolder" class="d-flex flex-md-row align-items-start justify-content-start overflow-auto">
+                                
+                                <div class="d-flex flex-column justify-content-start me-1" style="margin:5px;">
+                                    <label class="fw-light">Beneficiary # 1</label>
+                                    <input class="form-control mb-1" placeholder="Full Name">
+                                    <input class="form-control mb-1" placeholder="Relationship">
+                                    <input type="date" class="form-control flex-fill mb-1" id="datepicker" placeholder="DOB">
+                                    <input class="form-control mb-1" placeholder="Occupation">
+                                    <input class="form-control mb-1" placeholder="Employer">
+                                    <div class="form-check mb-3">
+                                        <input class="form-check-input" type="checkbox" name="flexRadioDefault" id="flexRadioDefault1">
+                                        <label class="form-check-label small-text" for="flexRadioDefault1">SCC Member?</label>
+                                    </div>
+                                    
+                                </div>
+                                
+                            </div>
+                        </div>
+                        <hr>
+                        <button type="submit" class="btn btn-primary">Submit Member</button>
+                      </form>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="/static/js/utils.js"></script>
+{% endblock %}

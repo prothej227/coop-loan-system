@@ -1,0 +1,67 @@
+
+{% extends 'login/base.html' %}
+{% block title %}Login{% endblock %}
+{% block form %}
+<div class="row justify-content-center">
+    <div class="col-xxl-4 col-xl-5 col-lg-5 col-md-8 col-sm-12 text-left h-100">
+        <div class="card shadow-lg" style="font-family: 'Proxima Nova Alt Rg';">
+            <div class="card-body p-5">
+                <h1 class="fs-4 card-title tx-mont text-center" style="color: #0e5997">ADMIN LOGIN</h1>
+                <hr>
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                <!-- Categories: success (green), info (blue), warning (yellow), danger (red) -->
+                {% if messages %}
+                  {% for category, message in messages %}
+                    <div id="flash" class="alert alert-{{ category }} alert-dismissible" role="alert">
+                    <!-- <strong>Title</strong> --> {{ message }}
+                    </div>
+                    <script>
+                        setTimeout(function() {
+                            $('#flash').hide("fade");
+                        }, 3000);
+                    </script>	
+                  {% endfor %}
+                {% endif %}
+                {% endwith %}
+                <form method="POST" class="needs-validation" novalidate autocomplete="off">
+                    <div class="mb-3">
+                        <label class="mb-2 text-muted" for="username">Username</label>
+                        <input id="username" type="text" class="form-control" name="username" value="" autofocus required>
+                        <div class="invalid-feedback">
+                            Username is invalid
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <div class="mb-2 w-100">
+                            <label class="text-muted" for="password">Password</label>
+                            <a href="forgot.html" class="float-end">
+                                Forgot Password?
+                            </a>
+                        </div>
+                        <input id="password" type="password" class="form-control" name="password" required>
+                        <div class="invalid-feedback">
+                            Password is required
+                        </div>
+                    </div>
+
+                    <div class="d-flex align-items-center">
+                        <div class="form-check">
+                            <input type="checkbox" name="remember" id="remember" class="form-check-input">
+                            <label for="remember" class="form-check-label">Remember Me</label>
+                        </div>
+                        <button type="submit" class="btn btn-outline-primary ms-auto">
+                            Login
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <div class="card-footer py-3 border-0">
+                <div class="text-center" >
+                    <span style="display:block">For new admin account, create one using this <a href="/register" class="text-dark">portal.</a></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 
+{% endblock %}

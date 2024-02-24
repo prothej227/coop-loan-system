@@ -1,0 +1,54 @@
+.border-left {
+    border-left: 2px solid #ccc;
+    padding-left: 15px;
+}
+
+@font-face {
+font-family: 'Proxima Nova Alt Rg';
+src: url('/static/webfont/ProximaNovaA-Regular.woff2') format('woff2'),
+    url('/static/webfont/ProximaNovaA-Regular.woff') format('woff');
+font-weight: normal;
+font-style: normal;
+font-display: swap;
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    src: url('/static/webfont/Montserrat-Regular.woff2') format('woff2'),
+        url('/static/webfont/Montserrat-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+.lbl {
+    font-size: smaller;
+    font-style: italic;
+}
+
+.flex-md-row {
+    flex-direction: row;
+}
+
+@media (max-width: 900px) {
+    .flex-md-row {
+        flex-direction: column;
+    }
+}
+
+#benHolder::-webkit-scrollbar {
+width: 8px;
+}
+
+#benHolder::-webkit-scrollbar-track {
+background: #f1f1f1;
+}
+
+#benHolder::-webkit-scrollbar-thumb {
+background: #888;
+border-radius: 4px;
+}
+
+#benHolder::-webkit-scrollbar-thumb:hover {
+background: #0a58ca;
+}
