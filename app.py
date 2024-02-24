@@ -1,6 +1,7 @@
 from flask import (
     Flask, render_template, send_from_directory, request, url_for, redirect, flash
-    )
+)
+
 from utils.constants import *
 from entity.models import db, User, Member
 from service.model_service import *
@@ -17,6 +18,8 @@ db_path = os.path.abspath(os.path.join(os.getcwd(), 'database', 'secure.db'))
 # Set the Flask Secret Key
 app.config['SECRET_KEY'] = 'Thisissupposedtobesecret!'
 
+
+# The comment below is for the SQLite3 database
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + db_path
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:@localhost/sibro_coop'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -48,6 +51,7 @@ def login():
     if request.method == 'POST':
         user = process_member_login_form(request.form)
         if user:
+            
             # if check_password_hash(user.password, request.form.get('password')):
             print(user.password)
             if pbkdf2_sha256.verify(request.form.get('password'), user.password):
@@ -112,8 +116,6 @@ def view_member_record():
     member_id = request.args.get('id')
     ref_member = Member.query.get(member_id)
     return render_template('main/view_member_record.html', ref_member=ref_member)
-
-
 
 @app.route('/process_member', methods=['POST'])
 @login_required
