@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>View Coop ID Card</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link href='https://fonts.googleapis.com/css?family=Libre Barcode 39' rel='stylesheet'>
+  <style>
+    /* Add custom styles here if needed */
+    .br-code {
+      font-family: 'Libre Barcode 39';font-size: 22px;
+    }
+    body {
+      font-family: 'Roboto', sans-serif;
+    }
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+      justify-content: center; /* Center horizontally */
+      height: 100%; /* Make the container full height */
+    }
+
+    .logo {
+      width: 100px;
+      height: auto;
+    }
+
+    .card {
+      max-width: 500px;
+      margin: auto;
+    }
+
+    .small-text {
+      font-size: 12px;
+    }
+
+    .card-body {
+      background-color: #f8f9fa;
+      padding: 20px;
+      border-radius: 10px;
+    }
+
+    .card-body p {
+      margin-bottom: 5px;
+    }
+
+    .card-body strong {
+      font-weight: bold;
+    }
+
+    #coopId {
+      font-size: 18px; /* Increase font size */
+      font-weight: bold; /* Make it bold */
+      color: #03335b; /* Change color to blue */
+    }
+  </style>
+</head>
+<body>
+  <div class="container mt-5">
+    <div class="card">
+      <div class="card-header">
+        <div class="logo-container">
+          <img src="/static/logo.svg" alt="Cooperative Logo" class="logo">
+          <div class="ml-3">
+            <h5 class="h1 card-title lead mb-0">SIBRO COOPERATIVE</h5>
+            <hr class="my-1">
+            <p class="small-text display-4 mb-0">
+              Sibagay 1, Cantabaco, Toledo City, Cebu 6038<br>
+              sibro_coop@domain.com
+            </p>
+			<hr class="my-1">
+			<p class="my-0" ><span class="lead" id="coopId">SIBRO-101-00{{ ref_member.member_id }}</span></p>
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-sm-12">
+			<p><strong >Member Name:</strong> <span id="fullName">{{ ref_member.firstName }} {{ ref_member.lastName }}</span></p>
+            <p><strong>DOB:</strong> <span id="dob">{{ ref_member.dob }}</span></p>
+            <p><strong>Sex:</strong> <span id="sex" class="text-capitalize">{{ ref_member.sex }}</span></p>
+            <p><strong>Joined Date:</strong> <span id="joinedDate">--</span></p>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer" style="display: flex;justify-content: center; padding:0; margin:0;">
+        <svg id="barcode" class="style=display: block; margin: 0 auto;" height="50%" width="100%"></svg>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jsbarcode/3.11.5/JsBarcode.all.min.js" integrity="sha512-QEAheCz+x/VkKtxeGoDq6nsGyzTx/0LMINTgQjqZ0h3+NjP+bCsPYz3hn0HnBkGmkIFSr7QcEZT+KyEM7lbLPQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script>
+  JsBarcode("#barcode", "SIBRO-101-00{{ ref_member.member_id}}", {
+  background: 'rgba(0,0,0,0)',
+  fontSize: 5,
+  textMargin: 1,
+  height: 20,
+  width: 2
+  });
+  </script>
+</body>
+</html>

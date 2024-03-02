@@ -5,6 +5,7 @@
 {% endblock %}
 {% block title %}All Members Data{% endblock %}
 {% block content %}
+
 <div class="container-fluid px-4 w-100">
     <h1 class="mt-4" style="font-size: 1.5em;">Member Records</h1>
     <ol class="breadcrumb mb-4">
@@ -17,6 +18,7 @@
             <i class="fas fa-table me-1"></i>
             List of Sibro Members
         </div>
+
         <div class="card-body">
             <table id="datatablesSimple">
                 <thead>
@@ -31,18 +33,7 @@
                         <th>Savings Amount</th>
                     </tr>
                 </thead>
-                <tfoot>
-                    <tr>
-                        <th>View Records</th>
-                        <th>Last Name</th>
-                        <th>First Name</th>
-                        <th>Member ID</th>
-                        <th>DOB</th>
-                        <th>Occupation</th>
-                        <th>Invoice Amount</th>
-                        <th>Savings Amount</th>
-                    </tr>
-                </tfoot>
+
                 <tbody>
                     {% for member in all_members_data %}
                     <tr>
@@ -60,7 +51,6 @@
             </table>
         </div>
     </div>
-
     <script>
         const occupationMap = {
             'GOV_EMPLOYEE': 'Government Employee',
@@ -84,4 +74,5 @@
     
         
     </script>
+
 {% endblock %}

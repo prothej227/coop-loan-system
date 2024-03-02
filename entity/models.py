@@ -1,6 +1,7 @@
 from flask_login import  UserMixin
 from flask_sqlalchemy  import SQLAlchemy
 
+
 db = SQLAlchemy()
 
 class User(UserMixin, db.Model):
@@ -44,3 +45,30 @@ class Beneficiary(db.Model):
     dob = db.Column(db.Date)
     occupation = db.Column(db.String(255))
     employer = db.Column(db.String(255))
+
+# ---------------- Business Entities ---------------- 
+class AccountCode(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    code_id = db.Column(db.Integer())
+    code_desc = db.Column(db.String(255))
+    journals = db.relationship('Journal', backref='account_code', lazy=True)
+    
+    @classmethod
+    def get_labels(cls) -> list:
+        return ["ID", "Code ID", "Code Description"]
+    
+
+    
+class Journal(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    type = db.Column(db.String(255))
+    date = db.Column(db.Date)
+    payee = db.Column(db.String(255))
+    tin_no = db.Column(db.String(100))
+    particulars = db.Column(db.Text)  # Long varchar/String
+    amount = db.Column(db.Float)  # or db.Column(db.DECIMAL(10, 2)) for decimal
+    account_code_id = db.Column(db.Integer, db.ForeignKey('account_code.id'))
+    debit = db.Column(db.Float)  # or db.Column(db.DECIMAL(10, 2)) for decimal
+    credit = db.Column(db.Float)  # or db.Column(db.DECIMAL(10, 2)) for decimal
+
+    

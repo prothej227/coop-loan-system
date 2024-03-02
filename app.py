@@ -1,15 +1,16 @@
 from flask import (
-    Flask, render_template, send_from_directory, request, url_for, redirect, flash
+    Flask, jsonify, render_template, send_from_directory, request, url_for, redirect, flash
 )
 
 from utils.constants import *
-from entity.models import db, User, Member
+from entity.models import *
+
 from service.model_service import *
+from service.forms.bus_forms import *
+
 from flask_login import LoginManager, login_required, logout_user, login_user
-from werkzeug.security import check_password_hash
 from passlib.hash import pbkdf2_sha256
 import os
-
 
 app = Flask(__name__)
 
@@ -18,8 +19,7 @@ db_path = os.path.abspath(os.path.join(os.getcwd(), 'database', 'secure.db'))
 # Set the Flask Secret Key
 app.config['SECRET_KEY'] = 'Thisissupposedtobesecret!'
 
-
-# The comment below is for the SQLite3 database
+# Uncomment below to use SQLite3 for DB
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + db_path
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:@localhost/sibro_coop'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -51,7 +51,7 @@ def login():
     if request.method == 'POST':
         user = process_member_login_form(request.form)
         if user:
-            
+
             # if check_password_hash(user.password, request.form.get('password')):
             print(user.password)
             if pbkdf2_sha256.verify(request.form.get('password'), user.password):
@@ -76,7 +76,7 @@ def register():
 @app.route('/')
 @login_required
 def index():
-    # Dashboard Data
+
     total_members = Member.query.count()
     return render_template('main/dashboard.html', total_members=total_members)
 
@@ -91,7 +91,7 @@ def logout():
 @login_required
 def view_members():
 
-    all_members_data = list(Member.query.all())
+    all_members_data = Member.query.all()
     for member in all_members_data:
         input_string = member.occupation
 
@@ -117,6 +117,14 @@ def view_member_record():
     ref_member = Member.query.get(member_id)
     return render_template('main/view_member_record.html', ref_member=ref_member)
 
+@app.route('/members/view/id_card', methods=['GET'])
+@login_required
+def view_member_coop_id_card():
+    member_id = request.args.get('id')
+    ref_member = Member.query.get(member_id)
+    return render_template('id_card/main.html', ref_member=ref_member)
+
+
 @app.route('/process_member', methods=['POST'])
 @login_required
 def process_member():  
@@ -125,6 +133,62 @@ def process_member():
         flash("New member added.", 'success')
 
     return redirect(url_for('add_member'))
+
+
+@app.route('/grid/account_code')
+@login_required
+def account_code_grid():
+    input_form = FAccountCode()
+
+    return render_template('main/account_code_grid.html', account_code = AccountCode, input_form=input_form)
+
+
+@app.route('/create/account_code', methods=['GET', 'POST'])
+@login_required
+def account_code_create():
+    form = FAccountCode()
+    update_id = request.args.get('id')
+    if form.validate_on_submit():
+        if not update_id:
+            new_acc_code = AccountCode(
+                code_id=form.code_id.data,
+                code_desc=form.code_desc.data
+            )
+        else:
+            new_acc_code = AccountCode.query.get_or_404(update_id)
+            new_acc_code.code_id = form.code_id.data
+            new_acc_code.code_desc = form.code_desc.data
+        db.session.add(new_acc_code)
+        db.session.commit()
+
+    return redirect(url_for('account_code_grid'))
+
+@app.route('/get/account_code', methods=['GET'])
+@login_required
+def account_code_get():
+    code_db_id = request.args.get('id')
+    if code_db_id:
+        code = AccountCode.query.get_or_404(code_db_id)
+        return jsonify(
+        {
+            "code_id" : code.code_id,
+            "code_desc": code.code_desc
+        }
+    )
+
+@app.route('/delete/account_code', methods=['GET', 'POST'])
+@login_required
+def account_code_delete():
+    code_db_id = request.args.get('id')
+    if code_db_id:
+        db.session.delete(
+            AccountCode.query.get_or_404(
+                int(code_db_id)
+            )
+        )
+        db.session.commit()
+    
+    return redirect(url_for('account_code_grid'))
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True)

@@ -14,8 +14,8 @@ def process_member_form(form) -> None:
 
     occupation = [x.upper() for x in form.getlist('occupation')]
 
+    # Create member objects from the list of fields
     try:
-
         target_member = Member(
             **{field: form.get(field) if field != 'dob' else datetime.fromisoformat(form.get(field)).date()
             for field in fields},
@@ -24,14 +24,12 @@ def process_member_form(form) -> None:
 
         db.session.add(target_member)
         db.session.commit()
-
         flash("New member added.", "success")    
 
     except:
         flash("An error occured.", "error")    
 
     
-
 def process_member_registration_form(form) -> None:
 
     form_username = form.get('username')

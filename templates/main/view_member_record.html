@@ -21,7 +21,13 @@
                 <div class="card d-flex flex-column align-items-center text-center"><img class="rounded-circle mt-3" width="150px" style=" border: 0.1px solid #cfcfcf" src="/static/profile_{% if ref_member.sex == 'male' %}m{% else %}fm{% endif %}.jpg">
                   <div class="card-body">
                     <h5 class="card-title font-weight-bold">{{ ref_member.firstName }} {{ ref_member.lastName }}</h5>
-                    <span class="card-text text-black-50">Date Joined: {{ ref_member.dob }}
+                    <span class="card-text text-black-50">Date Joined: {{ ref_member.dob }}</span>
+                    <hr>
+                    <a 
+                    href="/"
+                    target="popup" 
+                    onclick="window.open('/members/view/id_card?id={{ ref_member.member_id }}','popup','width=600,height=600'); return false;"
+                    class="text-dark">View ID Card</a>
                   </div>
                 </div>
             </div>
@@ -61,11 +67,11 @@
                   </tr>
                   <tr>
                     <th>Sex:</th>
-                    <td>{{ ref_member.sex }}</td>
+                    <td class="text-capitalize">{{ ref_member.sex }}</td>
                   </tr>
                   <tr>
                     <th>Civil Status:</th>
-                    <td>{{ ref_member.civilStatus }}</td>
+                    <td class="text-capitalize">{{ ref_member.civilStatus }}</td>
                   </tr>
                   <tr>
                     <th>Current Address:</th>
